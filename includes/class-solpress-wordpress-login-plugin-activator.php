@@ -31,7 +31,7 @@ class Solpress_Wordpress_Login_Plugin_Activator
      * @since    1.0.0
      */
     public static function activate()
-    {
+    {	
 
 				function showActivationError () {
 					?>
@@ -41,7 +41,7 @@ class Solpress_Wordpress_Login_Plugin_Activator
 					<?php
 				}
 
-        $api_url = esc_url('https://solpressloginapp.herokuapp.com/users/');
+        $api_url = esc_url('https://solpressloginapp.herokuapp.com/accounts');
         // get user id
         $data = array("userId" => get_current_user_id());
         // make post to remote for auth key
@@ -67,11 +67,10 @@ class Solpress_Wordpress_Login_Plugin_Activator
 							$body = wp_remote_retrieve_body($response);
 
 							$code = json_decode($body);
-
 							if (count($code) > 0 ) {
 								add_option('swl-auth-key', $code);
-								update_option('swl-auth-key', $code);
-
+                                update_option('swl-auth-key', $code);
+								
 							} else {
 									// echo 'Invalid data';
 									// return false;

@@ -323,6 +323,7 @@ class Solpress_Wordpress_Login_Plugin_Admin
             array(
                 'name' => 'swl-auth-key',
                 'value' => get_option('swl-auth-key'),
+            	'readonly' => 'true'
             )
         );
 

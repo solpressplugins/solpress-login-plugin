@@ -204,6 +204,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             'method' => 'POST',
             'headers' => [
                 'Content-type' => 'application/json',
+            	'Authorization' => 'Bearer ' . get_option('swl-auth-key'),
             ],
         ];
 

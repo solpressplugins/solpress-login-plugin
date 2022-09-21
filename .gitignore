@@ -4,5 +4,3 @@
 phpcbf
 phpcs
 workspace.code-workspace
-
-public/front/node_modules
