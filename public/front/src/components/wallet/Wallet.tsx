@@ -23,6 +23,8 @@ import {
   SolletWalletAdapter,
   TokenPocketWalletAdapter,
   TorusWalletAdapter,
+  BraveWalletAdapter,
+  CoinbaseWalletAdapter
 } from "@solana/wallet-adapter-wallets";
 import {
   WalletModalProvider,
@@ -46,6 +48,8 @@ export const Wallet: FC = ({ id }) => {
   // of wallets that your users connect to will be loaded.
   const wallets = useMemo(
     () => [
+      new BraveWalletAdapter(),
+      new CoinbaseWalletAdapter(),
       new BitKeepWalletAdapter(),
       new BitpieWalletAdapter(),
       new BloctoWalletAdapter({ network }),

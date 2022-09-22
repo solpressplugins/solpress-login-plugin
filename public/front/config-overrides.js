@@ -16,6 +16,10 @@ module.exports = function (config) {
       },
       {
         // Change this to fit your needs
+        module: /node_modules\/@solana/,
+      },
+      {
+        // Change this to fit your needs
         module: /node_modules/,
       },
     ],
