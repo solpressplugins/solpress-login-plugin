@@ -5,6 +5,20 @@ const WebpackBuildNotifierPlugin = require("webpack-build-notifier");
 module.exports = function (config) {
   return {
     ...config,
+    ignoreWarnings: [
+      {
+        // Change this to fit your needs
+        module: /node_modules\/@walletconnect/,
+      },
+      {
+        // Change this to fit your needs
+        module: /node_modules\/@particle-network/,
+      },
+      {
+        // Change this to fit your needs
+        module: /node_modules/,
+      },
+    ],
     module: {
       ...config.module,
       rules: [
@@ -20,6 +34,7 @@ module.exports = function (config) {
       ...config.resolve,
       fallback: {
         stream: require.resolve("stream-browserify"),
+        crypto: require.resolve("crypto-browserify"),
       },
     },
     output: {

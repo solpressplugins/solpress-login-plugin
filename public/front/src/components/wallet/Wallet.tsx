@@ -3,7 +3,7 @@ import {
   ConnectionProvider,
   WalletProvider,
 } from "@solana/wallet-adapter-react";
-import { Login } from "../Login/Login.tsx";
+import { Login } from "../login/Login.tsx";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import {
   BitKeepWalletAdapter,

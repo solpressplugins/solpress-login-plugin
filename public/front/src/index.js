@@ -1,9 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
+import ReactDOM from "react-dom/client";
+import { Buffer } from 'buffer';
 import reportWebVitals from "./reportWebVitals";
-import { Wallet } from "./components/Wallet/Wallet.tsx";
 
+import "./index.css";
+import { Wallet } from "./components/wallet/Wallet.tsx";
+
+window.Buffer = Buffer;
 
 if (document.querySelectorAll('.solpress-login')[0]) {
   document.querySelectorAll('.solpress-login').forEach(element => {
