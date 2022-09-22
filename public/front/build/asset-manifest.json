@@ -7,7 +7,7 @@
     "static/js/299.min.js": "/static/js/299.min.js",
     "static/js/882.min.js": "/static/js/882.min.js",
     "static/js/30.min.js": "/static/js/30.min.js",
-    "static/js/725.min.js": "/static/js/725.min.js",
+    "static/js/32.min.js": "/static/js/32.min.js",
     "static/js/544.min.js": "/static/js/544.min.js",
     "index.html": "/index.html",
     "main.min.css.map": "/static/css/main.min.css.map",
@@ -17,7 +17,7 @@
     "929.min.js.map": "/static/js/929.min.js.map",
     "299.min.js.map": "/static/js/299.min.js.map",
     "882.min.js.map": "/static/js/882.min.js.map",
-    "725.min.js.map": "/static/js/725.min.js.map",
+    "32.min.js.map": "/static/js/32.min.js.map",
     "544.min.js.map": "/static/js/544.min.js.map"
   },
   "entrypoints": [
