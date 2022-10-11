@@ -113,10 +113,10 @@ class Solpress_Wordpress_Login_Plugin_Admin
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/solpress-wordpress-login-plugin-admin.js', array('jquery'), $this->version, false);
 
         wp_enqueue_script($this->plugin_name . 'public-js', SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/js/solpress-wordpress-login-plugin-public.js', array('jquery'), $this->version, false);
-        wp_enqueue_script('main.min.js', SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/front/build/static/js/main.min.js', array('jquery'), $this->version, true);
+        wp_enqueue_script('solpress_login_admin_main.min.js', SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/front/build/static/js/main.min.js', array('jquery'), $this->version, true);
 
         wp_localize_script(
-            'main.min.js',
+            'solpress_login_admin_main.min.js',
             'solpress_wordpress_vars',
             array(
                 'ajax_url' => admin_url('admin-ajax.php'),

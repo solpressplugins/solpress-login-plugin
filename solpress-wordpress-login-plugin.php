@@ -13,10 +13,10 @@
  * @package           Solpress_Wordpress_Login_Plugin
  *
  * @wordpress-plugin
- * Plugin Name:       SolPress WordPress Login Plugin
+ * Plugin Name:       SolPress Login Plugin
  * Plugin URI:        https://solpress.dev/
  * Description:       A completely free, open source, permissionless, censorship-resistant, decentralized WordPress user registration and login plugin using Solana blockchain wallets. Say goodbye to emails and hello to web3 logins.
- * Version:           1.0.0
+ * Version:           1.0.3
  * Author:            Solpress
  * Author URI:        https://profiles.wordpress.org/solpressplugins/
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'SOLPRESS_WORDPRESS_LOGIN_PLUGIN_VERSION', '1.0.0' );
+define( 'SOLPRESS_WORDPRESS_LOGIN_PLUGIN_VERSION', '1.0.3' );
 define( 'SOLPRESS_WORDPRESS_LOGIN_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define( 'SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL', plugin_dir_url(__FILE__));
 define( 'SOLPRESS_WORDPRESS_LOGIN_PLUGIN_BASE_FILE', __FILE__ );

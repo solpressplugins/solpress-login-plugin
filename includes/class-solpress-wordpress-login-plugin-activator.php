@@ -31,15 +31,16 @@ class Solpress_Wordpress_Login_Plugin_Activator
      * @since    1.0.0
      */
     public static function activate()
-    {	
+    {
 
-				function showActivationError () {
-					?>
+        function showActivationError()
+        {
+            ?>
 					<div class="updated">
-							<p><?php _e( 'SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login-plugin' ); ?></p>
+							<p><?php _e('SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login-plugin');?></p>
 					</div>
 					<?php
-				}
+}
 
         $api_url = esc_url('https://solpressloginapp.herokuapp.com/accounts');
         // get user id
@@ -62,25 +63,19 @@ class Solpress_Wordpress_Login_Plugin_Activator
                 }
             }
 
-						if (isset($response['body']) && 200 === $response_code) {
+            if (isset($response['body']) && 200 === $response_code) {
 
-							$body = wp_remote_retrieve_body($response);
+                $body = wp_remote_retrieve_body($response);
 
-							$code = json_decode($body);
-							if (count($code) > 0 ) {
-								add_option('swl-auth-key', $code);
-                                update_option('swl-auth-key', $code);
-								
-							} else {
-									// echo 'Invalid data';
-									// return false;
-									add_action( 'admin_notices', 'showActivationError' );
-
-							}
-
-					}
-
-            // store auth key in options
+                $code = json_decode($body);
+                if (strlen($code) > 0) {
+                    add_option('swl-auth-key', $code);
+                    update_option('swl-auth-key', $code);
+                } else {
+                    add_action('admin_notices', 'showActivationError');
+                    return;
+                }
+            }
         }
     }
 }
