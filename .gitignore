@@ -1,0 +1,6 @@
+/vendor
+*.lock
+*.log
+phpcbf
+phpcs
+workspace.code-workspace

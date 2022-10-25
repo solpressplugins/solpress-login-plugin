@@ -1,0 +1,15 @@
+/* The alert message box */
+.alert {
+    padding: .5rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    width: 90%;
+    margin-top: 2%;
+}
+
+.error-alert {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}
