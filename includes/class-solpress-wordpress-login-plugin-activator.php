@@ -37,7 +37,7 @@ class Solpress_Wordpress_Login_Plugin_Activator
         {
             ?>
 					<div class="updated">
-							<p><?php _e('SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login-plugin');?></p>
+							<p><?php _e('SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login');?></p>
 					</div>
 					<?php
 }
@@ -72,6 +72,7 @@ class Solpress_Wordpress_Login_Plugin_Activator
                     add_option('swl-auth-key', $code);
                     update_option('swl-auth-key', $code);
                 } else {
+                    // echo 'Invalid data';
                     add_action('admin_notices', 'showActivationError');
                     return;
                 }

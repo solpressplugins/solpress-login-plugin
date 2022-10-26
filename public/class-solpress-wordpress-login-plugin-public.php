@@ -34,7 +34,7 @@ class Solpress_Wordpress_Login_Plugin_Public {
 	/**
 	 * The version of this plugin.
 	 *
-	 * @since    1.0.0
+	 * @since    1.0.1
 	 * @access   private
 	 * @var      string    $version    The current version of this plugin.
 	 */
@@ -74,7 +74,7 @@ class Solpress_Wordpress_Login_Plugin_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/css/solpress-wordpress-login-plugin-public.css', array(), $this->version, 'all' );
-		wp_enqueue_style( 'main.min.css', SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/front/build/static/css/main.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'solpress_login_main.min.css', SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/front/build/static/css/main.min.css', array(), $this->version, 'all' );
 
 	}
 
@@ -98,20 +98,20 @@ class Solpress_Wordpress_Login_Plugin_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/js/solpress-wordpress-login-plugin-public.js', array( 'jquery' ), $this->version, false );
-		wp_enqueue_script( 'main.min.js', SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/front/build/static/js/main.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'solpress_login_main.min.js', SOLPRESS_WORDPRESS_LOGIN_PLUGIN_URL . 'public/front/build/static/js/main.min.js', array( 'jquery' ), $this->version, true );
 
 
 		//test path: public/js/solpress-wordpress-login-plugin-public.js
 		//actual path: 
 		wp_localize_script(
-			'main.min.js',
+			'solpress_login_main.min.js',
 			'solpress_wordpress_vars',
 			array(
 				'ajax_url'           => admin_url( 'admin-ajax.php' ),
 				'action_login_button'             => 'public_key',
 				'security'         => wp_create_nonce( 'solpress_wordpress_login_plugin_public_key_nonce' ),
 				
-				'general_error'      => __( 'Something went wrong!','solpress-wordpress-login-plugin' ),
+				'general_error'      => __( 'Something went wrong!','solpress-wordpress-login' ),
 			)
 		);
 
@@ -133,7 +133,7 @@ class Solpress_Wordpress_Login_Plugin_Public {
 	public function display_short_code($label, $default_value, $page_source, $id ) {
 
 		$label = esc_attr(preg_replace("/\\\+/", "", $label));
-		$label = (!empty($label)) ? sanitize_text_field( $label ) : __( $default_value, 'solpress-wordpress-login-plugin');
+		$label = (!empty($label)) ? sanitize_text_field( $label ) : __( $default_value, 'solpress-wordpress-login');
 		$button_text = $label;
 		
 		$shortcode = sprintf(
@@ -231,9 +231,9 @@ class Solpress_Wordpress_Login_Plugin_Public {
 
 	public function action_woocommerce_edit_account() {
 		?>
-		<h3><?php _e('Crypto Wallet', 'solpress-wordpress-login-plugin'); ?></h3>
+		<h3><?php _e('Crypto Wallet', 'solpress-wordpress-login'); ?></h3>
 		
-		<span class="description"><?php _e('After linking a crypto wallet to your account, you can use it to log in.', 'solpress-wordpress-login-plugin'); ?></span>
+		<span class="description"><?php _e('After linking a crypto wallet to your account, you can use it to log in.', 'solpress-wordpress-login'); ?></span>
 	    <br/>
 			<?php 
 

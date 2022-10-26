@@ -28,30 +28,6 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-	//  const url = window.solpress_wordpress_vars.ajax_url;
-	//  const security = window.solpress_wordpress_vars.security;
-	//  const action = window.solpress_wordpress_vars.action_login_button;
-	//  const data = { action, security, publicKey:'test12345'};
 
-
-
-	//  console.log(url);
-	//  console.log(security);
-	//  console.log(action);
-	
-	 
-	//  $(document).on("click","#login-button",function(){
-	// 	$.ajax({
-	// 		url,
-	// 		type: "POST",
-	// 		data,
-	// 		success: (res) => {
-	// 		  console.log(res);
-	// 		},
-	// 		error: (err) => {
-	// 		  console.log(err);
-	// 		},
-	// 	  });
-	// });
 
 })( jQuery );

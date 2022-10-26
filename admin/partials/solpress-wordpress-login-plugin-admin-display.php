@@ -21,7 +21,7 @@
     <?php 
         settings_fields('swl-settings-page-options-group');
 
-        do_settings_sections('solpress-wordpress-login-plugin');   
+        do_settings_sections('solpress-wordpress-login');   
     ?>
 		<?php submit_button(); ?>
     </form>

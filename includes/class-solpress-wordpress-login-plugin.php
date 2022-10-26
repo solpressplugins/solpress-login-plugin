@@ -72,7 +72,7 @@ class Solpress_Wordpress_Login_Plugin {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'solpress-wordpress-login-plugin';
+		$this->plugin_name = 'solpress-wordpress-login';
 
 		$this->load_dependencies();
 		$this->set_locale();

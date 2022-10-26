@@ -60,7 +60,7 @@
     // $message = sprintf(
     //     __(
     //         'Log in to %1$s',
-    //         'solpress-wordpress-login-plugin'
+    //         'solpress-wordpress-login'
     //     ),
     //     get_bloginfo( 'name', 'display' )
     // ) . "\n\n" . get_home_url();
@@ -84,7 +84,7 @@ data-message="<?php
     ?>"     
 >
 <?php
-		$text     = esc_html__( 'Enable JavaScript to log in with a crypto wallet.','solpress-wordpress-login-plugin' );
+		$text     = esc_html__( 'Enable JavaScript to log in with a crypto wallet.','solpress-wordpress-login' );
 		$noscript = '<noscript>' . $text . '</noscript>';
 
 		echo '<h4 style="color:#2271B1;">' . $noscript . '</h4>';

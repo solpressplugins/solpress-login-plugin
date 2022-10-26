@@ -10,7 +10,6 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 export const Login: FC = ({ id }) => {
   //const { connection } = useConnection();
   const { publicKey, signMessage } = useWallet();
-  console.log("Section Id", id);
   const parentSection = document.getElementById(id);
   const buttonText = parentSection.dataset.buttonText;
   const sourcePage = parentSection.dataset.sourcePage;
@@ -26,17 +25,13 @@ export const Login: FC = ({ id }) => {
         "form[name='loginform'] input[name='redirect_to']"
       ) as HTMLInputElement;
       const redirectionURL = redirectionInput.value;
-      console.log("Redirection URL", redirectionURL ? redirectionURL : "");
+
       return redirectionURL;
     } else {
       return "";
     }
   }
   const redirectionURL = getRedirectionURL();
-
-  console.log("Button Text: ", buttonText);
-  console.log("Source Page: ", sourcePage);
-  console.log("Sign In Message:", signInMessage);
 
   const onClick = useCallback(async () => {
     try {
@@ -58,23 +53,13 @@ export const Login: FC = ({ id }) => {
       // Sign the bytes using the wallet
 
       const signature = await signMessage(message);
-      console.log("Signature:", signature);
+
       // Verify that the bytes were signed using the private key that matches the known public key
       if (!sign.detached.verify(message, signature, publicKey.toBytes())) {
         setErrMsg("Invalid signature!");
         throw new Error("Invalid signature!");
       }
-      //alert(`Message signature: ${bs58.encode(signature)}`);
-      console.log("Publick key: ", publicKey?.toBase58());
-      console.log("Message signature: ", bs58.encode(signature));
 
-      // await SolanaAPI.loginWithPublicKey(
-      //   publicKey?.toBase58(),
-      //   sourcePage,
-      //   redirectionURL,
-      //   signInMessage,
-      //   bs58.encode(signature)
-      // );
       await SolanaAPI.loginWithPublicKey(
         publicKey?.toBase58(),
         sourcePage,
@@ -83,12 +68,10 @@ export const Login: FC = ({ id }) => {
         bs58.encode(signature)
       );
     } catch (error: any) {
-      //alert(`Signing failed: ${error?.message}`);
-      //setErrMsg(error);
+
       setErrMsg(error);
-      console.log(error);
     }
-    console.log(errMsg);
+
   }, [publicKey, signMessage]);
 
   return (

@@ -123,7 +123,7 @@ class Solpress_Wordpress_Login_Plugin_Admin
                 'action_login_button' => 'public_key',
                 'security' => wp_create_nonce('solpress_wordpress_login_plugin_public_key_nonce'),
 
-                'general_error' => __('Something went wrong!', 'solpress-wordpress-login-plugin'),
+                'general_error' => __('Something went wrong!', 'solpress-wordpress-login'),
             )
         );
 
@@ -142,10 +142,10 @@ class Solpress_Wordpress_Login_Plugin_Admin
     public function solpress_login_menu()
     {
         add_menu_page(
-            esc_html__('SolPress Login Plugin Settings', 'solpress-wordpress-login-plugin'),
-            esc_html__('SolPress Login Plugin Settings', 'solpress-wordpress-login-plugin'),
+            esc_html__('SolPress Login Plugin Settings', 'solpress-wordpress-login'),
+            esc_html__('SolPress Login Plugin Settings', 'solpress-wordpress-login'),
             'manage_options',
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             array($this, 'solpress_wordpress_login_plugin'),
             'dashicons-admin-generic
 		',
@@ -153,7 +153,7 @@ class Solpress_Wordpress_Login_Plugin_Admin
         );
 
         //testingggg
-        //add_submenu_page( 'solpress-wordpress-login-plugin', esc_html__('Tests' ,'solpress-wordpress-login-plugin' ),esc_html__('Tests' ,'solpress-wordpress-login-plugin' ), 'manage_options', 'solpress-wordpress-login-plugin-test', array( $this, 'solpress_wordpress_login_plugin_test' ) );
+        //add_submenu_page( 'solpress-wordpress-login', esc_html__('Tests' ,'solpress-wordpress-login' ),esc_html__('Tests' ,'solpress-wordpress-login' ), 'manage_options', 'solpress-wordpress-login-plugin-test', array( $this, 'solpress_wordpress_login_plugin_test' ) );
     }
 
     /**
@@ -211,21 +211,21 @@ class Solpress_Wordpress_Login_Plugin_Admin
     public function add_settings_section()
     {
 
-        add_settings_section('swl-login-button-settings', esc_html__('Login Button Text', 'solpress-wordpress-login-plugin'), function () {
-            '<p>' . esc_html_e('This is where you place the text that will appear on the button', 'solpress-wordpress-login-plugin') . '</p>';
-        }, 'solpress-wordpress-login-plugin');
+        add_settings_section('swl-login-button-settings', esc_html__('Login Button Text', 'solpress-wordpress-login'), function () {
+            '<p>' . esc_html_e('This is where you place the text that will appear on the button', 'solpress-wordpress-login') . '</p>';
+        }, 'solpress-wordpress-login');
 
-        add_settings_section('swl-redirect-url-settings', esc_html__('Redirection After Login/Registration', 'solpress-wordpress-login-plugin'), function () {
-            '<p>' . esc_html_e('This is where you place the url the user will redirected to after successfull login or register', 'solpress-wordpress-login-plugin') . '</p>';
-        }, 'solpress-wordpress-login-plugin');
+        add_settings_section('swl-redirect-url-settings', esc_html__('Redirection After Login/Registration', 'solpress-wordpress-login'), function () {
+            '<p>' . esc_html_e('This is where you place the url the user will redirected to after successfull login or register', 'solpress-wordpress-login') . '</p>';
+        }, 'solpress-wordpress-login');
 
-        add_settings_section('swl-sign-in-message-settings', esc_html__('Sign In Message', 'solpress-wordpress-login-plugin'), function () {
-            '<p>' . esc_html_e('This is where you place the sign in the message that will appear to the user in the Crypto Wallet', 'solpress-wordpress-login-plugin') . '</p>';
-        }, 'solpress-wordpress-login-plugin');
+        add_settings_section('swl-sign-in-message-settings', esc_html__('Sign In Message', 'solpress-wordpress-login'), function () {
+            '<p>' . esc_html_e('This is where you place the sign in the message that will appear to the user in the Crypto Wallet', 'solpress-wordpress-login') . '</p>';
+        }, 'solpress-wordpress-login');
 
-        add_settings_section('swl-auth-key-settings', esc_html__('User Verification', 'solpress-wordpress-login-plugin'), function () {
-            '<p>' . esc_html_e('This is where you place the authentication key for user verification', 'solpress-wordpress-login-plugin') . '</p>';
-        }, 'solpress-wordpress-login-plugin');
+        add_settings_section('swl-auth-key-settings', esc_html__('User Verification', 'solpress-wordpress-login'), function () {
+            '<p>' . esc_html_e('This is where you place the authentication key for user verification', 'solpress-wordpress-login') . '</p>';
+        }, 'solpress-wordpress-login');
 
     }
 
@@ -244,9 +244,9 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         add_settings_field(
             'swl-login-button-text',
-            esc_html__('Login Button Text', 'solpress-wordpress-login-plugin'),
+            esc_html__('Login Button Text', 'solpress-wordpress-login'),
             array($this, 'markup_text_fields_cb'),
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             'swl-login-button-settings',
             array(
                 'name' => 'swl-login-button-text',
@@ -256,9 +256,9 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         add_settings_field(
             'swl-register-button-text',
-            esc_html__('Registration Button Text', 'solpress-wordpress-login-plugin'),
+            esc_html__('Registration Button Text', 'solpress-wordpress-login'),
             array($this, 'markup_text_fields_cb'),
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             'swl-login-button-settings',
             array(
                 'name' => 'swl-register-button-text',
@@ -268,9 +268,9 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         add_settings_field(
             'swl-user-profile-button-text',
-            esc_html__('User Profile Button Text', 'solpress-wordpress-login-plugin'),
+            esc_html__('User Profile Button Text', 'solpress-wordpress-login'),
             array($this, 'markup_text_fields_cb'),
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             'swl-login-button-settings',
             array(
                 'name' => 'swl-user-profile-button-text',
@@ -280,9 +280,9 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         add_settings_field(
             'swl-short-code-label-button-text',
-            esc_html__('Short Code Label Button Text', 'solpress-wordpress-login-plugin'),
+            esc_html__('Short Code Label Button Text', 'solpress-wordpress-login'),
             array($this, 'markup_text_fields_cb'),
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             'swl-login-button-settings',
             array(
                 'name' => 'swl-short-code-label-button-text',
@@ -292,9 +292,9 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         add_settings_field(
             'swl-redirect-url-settings',
-            esc_html__('Redirection Url', 'solpress-wordpress-login-plugin'),
+            esc_html__('Redirection Url', 'solpress-wordpress-login'),
             array($this, 'markup_text_fields_cb'),
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             'swl-redirect-url-settings',
             array(
                 'name' => 'swl-redirect-url-settings',
@@ -304,9 +304,9 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         add_settings_field(
             'swl-sign-in-message',
-            esc_html__('Sign in Message', 'solpress-wordpress-login-plugin'),
+            esc_html__('Sign in Message', 'solpress-wordpress-login'),
             array($this, 'markup_text_fields_cb'),
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             'swl-sign-in-message-settings',
             array(
                 'name' => 'swl-sign-in-message',
@@ -316,9 +316,9 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         add_settings_field(
             'swl-auth-key',
-            esc_html__('Authentication Key', 'solpress-wordpress-login-plugin'),
+            esc_html__('Authentication Key', 'solpress-wordpress-login'),
             array($this, 'markup_text_fields_cb'),
-            'solpress-wordpress-login-plugin',
+            'solpress-wordpress-login',
             'swl-auth-key-settings',
             array(
                 'name' => 'swl-auth-key',
@@ -440,7 +440,7 @@ class Solpress_Wordpress_Login_Plugin_Admin
     public function add_plugin_action_links($links)
     {
 
-        $links[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=solpress-wordpress-login-plugin')) . '">' . esc_html__('Settings', 'solpress-wordpress-login-plugin') . '</a>';
+        $links[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=solpress-wordpress-login-plugin')) . '">' . esc_html__('Settings', 'solpress-wordpress-login') . '</a>';
 
         return $links;
     }
@@ -500,14 +500,14 @@ class Solpress_Wordpress_Login_Plugin_Admin
     public function solpress_login_button_add_user_meta()
     {
         ?>
-		<h3><?php esc_html_e('Crypto Wallet', 'solpress-wordpress-login-plugin');?></h3>
+		<h3><?php esc_html_e('Crypto Wallet', 'solpress-wordpress-login');?></h3>
 
-		<span class="description"><?php esc_html_e('After linking a crypto wallet to your account, you can use it to log in.', 'solpress-wordpress-login-plugin');?></span>
+		<span class="description"><?php esc_html_e('After linking a crypto wallet to your account, you can use it to log in.', 'solpress-wordpress-login');?></span>
 	    <br/>
 			<?php
 
         $label = get_option('swl-user-profile-button-text');
-        $label = (!empty($label)) ? sanitize_text_field($label) : __('Link your Crypto Wallet', 'solpress-wordpress-login-plugin');
+        $label = (!empty($label)) ? sanitize_text_field($label) : __('Link your Crypto Wallet', 'solpress-wordpress-login');
         $label = esc_attr(preg_replace("/\\\+/", "", $label));
         $button_text = $label;
         $page_source = 'profile';

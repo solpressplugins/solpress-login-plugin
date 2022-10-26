@@ -31,8 +31,7 @@ class SolanaAPI {
         success: (res: any) => {
           if (res) {
             resolve(res);
-            console.log(res)
-            console.log(res?.success);
+
             if(res?.data?.redirectUrl){
             window.location.replace(res?.data?.redirectUrl);
             }
@@ -41,7 +40,6 @@ class SolanaAPI {
           }
         },
         error: (err: any) => {
-          console.log(err?.responseJSON?.data?.errorMessage);
           reject(err?.responseJSON?.data?.errorMessage);
         },
       });
