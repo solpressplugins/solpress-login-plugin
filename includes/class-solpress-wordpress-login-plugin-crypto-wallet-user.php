@@ -81,14 +81,14 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         $this->links['wc_profile_url'] = '';
         $this->links['wc_account'] = '';
 
-        $this->links['profile_url'] = esc_url(get_edit_profile_url());
+        $this->links['profile_url'] = esc_url(sanitize_text_field(get_edit_profile_url()));
         if (function_exists('wc_get_account_endpoint_url')) {
-            $this->links['wc_profile_url'] = esc_url(wc_get_account_endpoint_url('edit-account'));
+            $this->links['wc_profile_url'] = esc_url(sanitize_text_field(wc_get_account_endpoint_url('edit-account')));
         }
         if (function_exists('wc_get_page_permalink')) {
-            $this->links['wc_account'] = esc_url(wc_get_page_permalink('myaccount'));
+            $this->links['wc_account'] = esc_url(sanitize_text_field(wc_get_page_permalink('myaccount')));
         }
-        $this->links['redirect_settings_url'] = esc_url(get_option('swl-redirect-url-settings'));
+        $this->links['redirect_settings_url'] = esc_url(sanitize_text_field(get_option('swl-redirect-url-settings')));
         $this->links['home_url'] = esc_url(home_url());
     }
 
@@ -110,21 +110,20 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             wp_die();
 
         } else {
-            $public_key_user = isset($_REQUEST['publicKey']) ? $_REQUEST['publicKey'] : "";
-            $public_key_user = sanitize_text_field($public_key_user);
+            $public_key_user = isset($_REQUEST['publicKey']) ? sanitize_text_field($_REQUEST['publicKey']) : "";
 
-            $source_page = isset($_REQUEST['sourcePage']) ? $_REQUEST['sourcePage'] : "";
-            $source_page = sanitize_text_field($source_page);
+            $source_page = isset($_REQUEST['sourcePage']) ? sanitize_text_field($_REQUEST['sourcePage']) : "";
 
-            $redirect_url = isset($_REQUEST['redirectionURL']) ? $_REQUEST['redirectionURL'] : "";
+            $redirect_url = isset($_REQUEST['redirectionURL']) ? sanitize_text_field($_REQUEST['redirectionURL']) : "";
+
             $redirect_url = esc_url($redirect_url);
+
             if (class_exists('Solpress_Wordpress_Login_Plugin_Shortcodes')) {
                 $shortcode_instance = new Solpress_Wordpress_Login_Plugin_Shortcodes($this->plugin_name, $this->version);
                 $signin_message = $shortcode_instance->get_sign_in_message();
             }
 
-            $signature = isset($_REQUEST['signature']) ? $_REQUEST['signature'] : "";
-            $signature = sanitize_text_field($signature);
+            $signature = isset($_REQUEST['signature']) ? sanitize_text_field($_REQUEST['signature']) : "";
 
             $verified = $this->verify_user_using_api($public_key_user, $signin_message, $signature);
 
@@ -205,7 +204,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             'method' => 'POST',
             'headers' => [
                 'Content-type' => 'application/json',
-            	'Authorization' => 'Bearer ' . get_option('swl-auth-key'),
+                'Authorization' => 'Bearer ' . $auth_key,
             ],
         ];
 

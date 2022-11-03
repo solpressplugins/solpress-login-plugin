@@ -36,11 +36,11 @@ class Solpress_Wordpress_Login_Plugin_Activator
         function showActivationError()
         {
             ?>
-					<div class="updated">
-							<p><?php _e('SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login');?></p>
-					</div>
-					<?php
-}
+                <div class="updated">
+                    <p><?php _e('SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login');?></p>
+                </div>
+            <?php
+        }
 
         $api_url = esc_url('https://solpressloginapp.herokuapp.com/accounts');
         // get user id
