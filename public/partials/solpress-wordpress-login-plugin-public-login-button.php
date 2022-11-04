@@ -14,6 +14,6 @@ data-message="<?php
 		$text     = esc_html__( 'Enable JavaScript to log in with a crypto wallet.','solpress-wordpress-login' );
 		$noscript = '<noscript>' . $text . '</noscript>';
 
-		echo esc_html('<h4 style="color:#2271B1;">' . $noscript . '</h4>');
+		echo '<h4 style="color:#2271B1;">' . $noscript . '</h4>';
 ?>
 </section>
