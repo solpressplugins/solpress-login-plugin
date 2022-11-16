@@ -47,7 +47,7 @@ class Solpress_Wordpress_Login_Plugin_Activator
         $data = array("userId" => get_current_user_id());
         // make post to remote for auth key
         $args = [
-            'body' => json_encode($data),
+            'body' => wp_json_encode($data),
             'method' => 'POST',
             'headers' => [
                 'Content-type' => 'application/json',
@@ -72,7 +72,6 @@ class Solpress_Wordpress_Login_Plugin_Activator
                     add_option('swl-auth-key', $code);
                     update_option('swl-auth-key', $code);
                 } else {
-                    // echo 'Invalid data';
                     add_action('admin_notices', 'showActivationError');
                     return;
                 }

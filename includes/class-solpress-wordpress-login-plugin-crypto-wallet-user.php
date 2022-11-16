@@ -128,7 +128,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             $verified = $this->verify_user_using_api($public_key_user, $signin_message, $signature);
 
             if ($verified) {
-                // echo "verified";
                 $user = $this->login_user($public_key_user, $source_page, $redirect_url);
 
                 if ($user) {
@@ -139,7 +138,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
                     ));
                     wp_die();
                 } else {
-                    // echo "not-verified";
                     wp_send_json_error(array(
                         'errorMessage' => __('An error occurred', 'solpress-wordpress-login'),
                     ), 400);
@@ -200,7 +198,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         ];
 
         $args = [
-            'body' => json_encode($data),
+            'body' => wp_json_encode($data),
             'method' => 'POST',
             'headers' => [
                 'Content-type' => 'application/json',
@@ -227,7 +225,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
                 if (count((array) $body) > 0 && isset($body->verified) && true === $body->verified) {
                     return true;
                 } else {
-                    // echo 'Invalid data';
                     return false;
                 }
 
@@ -236,7 +233,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             }
 
         } else {
-            // echo 'Response is a wp_error';
             return false;
         }
 
@@ -290,7 +286,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         $table_name = $wpdb->prefix . 'usermeta';
         $public_key_db = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT  user_id FROM `$table_name` WHERE meta_key = 'publickey' AND meta_value = %s ", $public_key_user
+                "SELECT  user_id FROM %s WHERE meta_key = 'publickey' AND meta_value = %s ", array($table_name, $public_key_user)
             ));
 
         if (!is_null($public_key_db)) {
@@ -466,8 +462,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
 
         $existing_user = $this->find_user_by_public_key($public_key);
 
-        // var_dump($existing_user);
-
         if (!is_null($existing_user)) {
             wp_send_json_error(array(
                 'errorMessage' => __('User already exists, Please Login', 'solpress-wordpress-login'),
@@ -486,8 +480,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         if (is_wp_error($user_id)) {
             return $user_id;
         }
-
-        // $user = get_user_by( 'ID', $user_id );
 
         $this->update_user_meta($user_id, $public_key);
 
@@ -541,13 +533,11 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
 
         } else {
             if ('register' === $source_page || 'wc-register' === $source_page) {
-                // var_dump("user is registering");
                 $registered_user = $this->register_and_log_in($public_key);
                 if ($registered_user) {
                     return true;
                 }
             } else {
-                // var_dump("user is loggingin");
                 // case for login, wc-login and shortcode
                 $user_id = $this->find_user_by_public_key($public_key);
                 $logged_user = $this->log_in($user_id);

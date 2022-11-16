@@ -151,9 +151,6 @@ class Solpress_Wordpress_Login_Plugin_Admin
 		',
             22
         );
-
-        //testingggg
-        //add_submenu_page( 'solpress-wordpress-login', esc_html__('Tests' ,'solpress-wordpress-login' ),esc_html__('Tests' ,'solpress-wordpress-login' ), 'manage_options', 'solpress-wordpress-login-plugin-test', array( $this, 'solpress_wordpress_login_plugin_test' ) );
     }
 
     /**
@@ -173,12 +170,6 @@ class Solpress_Wordpress_Login_Plugin_Admin
         }
 
     }
-
-    // testing
-    // public function solpress_wordpress_login_plugin_test() {
-    //     // echo 'test';
-    //     echo get_edit_profile_url();
-    // }
 
     /**
      * Calls functions responsible for adding settings to plugin with is sections and fields.
@@ -479,9 +470,13 @@ class Solpress_Wordpress_Login_Plugin_Admin
             return false;
         }
         //should it be sanitised or it is auto sanitised????
-        if (isset($_POST['publickey'])) {
-            $sanitised_pk = sanitize_text_field($_POST['publickey']);
-            update_user_meta($user_id, 'publickey', $sanitised_pk);
+        if (isset($_POST['publickey']) && isset($_POST['security']) ) {
+            if (wp_verify_nonce( sanitize_text_field($_POST['security']), 'solpress_wordpress_login_plugin_public_key_nonce' )) {
+                $sanitised_pk = sanitize_text_field($_POST['publickey']);
+                update_user_meta($user_id, 'publickey', $sanitised_pk);
+            } else {
+                throw new Error('nonce verification failed');
+            }
         }
 
     }
