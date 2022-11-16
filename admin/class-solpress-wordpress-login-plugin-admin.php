@@ -458,11 +458,7 @@ class Solpress_Wordpress_Login_Plugin_Admin
     {
 
         if (is_readable(SOLPRESS_WORDPRESS_LOGIN_PLUGIN_PATH . 'admin/partials/solpress-wordpress-login-plugin-admin-display-user-meta-fields.php')) {
-            ob_start();
             include SOLPRESS_WORDPRESS_LOGIN_PLUGIN_PATH . 'admin/partials/solpress-wordpress-login-plugin-admin-display-user-meta-fields.php';
-            $template = ob_get_contents();
-            ob_end_clean();
-            echo $template;
         }
 
     }

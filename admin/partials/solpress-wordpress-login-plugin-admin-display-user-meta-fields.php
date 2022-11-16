@@ -1,5 +1,4 @@
 <h3><?php _e('User Wallet Public Key', 'solpress-wordpress-login'); ?></h3>
-			
 <table class="form-table">
   <tr>
     <th>

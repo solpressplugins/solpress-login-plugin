@@ -317,7 +317,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         if (!$user_id) {
 
             wp_send_json_error(array(
-                'errorMessage' => __('User not found. Try creating a new account.', 'solpress-wordpress-login'),
+                'errorMessage' => __('Account not found. Register with your wallet', 'solpress-wordpress-login'),
             ), 401);
         }
 
@@ -537,14 +537,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
     {
 
         if (is_user_logged_in()) {
-            if ('profile' === $source_page || 'wc-profile' === $source_page) {
-                //returns wp_send_json_success
-                $this->link_user($public_key, $source_page, $redirect_url);
-            } else {
-                wp_send_json_error(array(
-                    'errorMessage' => __('You are already logged in', 'solpress-wordpress-login'),
-                ), 401);
-            }
+            $this->link_user($public_key, $source_page, $redirect_url);
 
         } else {
             if ('register' === $source_page || 'wc-register' === $source_page) {
