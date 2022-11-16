@@ -166,7 +166,7 @@ class Solpress_Wordpress_Login_Plugin_Admin
 
         $page_template = SOLPRESS_WORDPRESS_LOGIN_PLUGIN_PATH . 'admin/partials/solpress-wordpress-login-plugin-admin-display.php';
         if (is_file($page_template) && is_readable($page_template)) {
-            include 'partials/solpress-wordpress-login-plugin-admin-display.php';
+            include_once( plugin_dir_path( __FILE__ ) . 'partials/solpress-wordpress-login-plugin-admin-display.php' );
         }
 
     }

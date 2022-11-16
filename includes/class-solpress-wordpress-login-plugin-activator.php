@@ -37,7 +37,7 @@ class Solpress_Wordpress_Login_Plugin_Activator
         {
             ?>
                 <div class="updated">
-                    <p><?php _e('SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login');?></p>
+                    <p><?php esc_html_e('SolPress Login Plugin is not correctly activated. Try re-activating or reinstalling SolPress Login plugin again.!', 'solpress-wordpress-login');?></p>
                 </div>
             <?php
         }

@@ -231,9 +231,9 @@ class Solpress_Wordpress_Login_Plugin_Public {
 
 	public function action_woocommerce_edit_account() {
 		?>
-		<h3><?php _e('Crypto Wallet', 'solpress-wordpress-login'); ?></h3>
+		<h3><?php esc_html_e('Crypto Wallet', 'solpress-wordpress-login'); ?></h3>
 		
-		<span class="description"><?php _e('After linking a crypto wallet to your account, you can use it to log in.', 'solpress-wordpress-login'); ?></span>
+		<span class="description"><?php esc_html_e('After linking a crypto wallet to your account, you can use it to log in.', 'solpress-wordpress-login'); ?></span>
 	    <br/>
 			<?php 
 
