@@ -286,7 +286,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         $table_name = $wpdb->prefix . 'usermeta';
         $public_key_db = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT  user_id FROM %s WHERE meta_key = 'publickey' AND meta_value = %s ", array($table_name, $public_key_user)
+                "SELECT  user_id FROM `$table_name` WHERE meta_key = 'publickey' AND meta_value = %s ", $public_key_user
             ));
 
         if (!is_null($public_key_db)) {
