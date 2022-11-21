@@ -431,7 +431,7 @@ class Solpress_Wordpress_Login_Plugin_Admin
     public function add_plugin_action_links($links)
     {
 
-        $links[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=solpress-wordpress-login-plugin')) . '">' . esc_html__('Settings', 'solpress-wordpress-login') . '</a>';
+        $links[] = '<a href="' . esc_url(get_admin_url(null, 'admin.php?page=solpress-wordpress-login')) . '">' . esc_html__('Settings', 'solpress-wordpress-login') . '</a>';
 
         return $links;
     }
