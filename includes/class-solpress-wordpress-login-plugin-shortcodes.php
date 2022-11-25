@@ -67,7 +67,7 @@ class Solpress_Wordpress_Login_Plugin_Shortcodes {
 			$message = sprintf(
 				__(
 					'Log in to %1$s',
-					'solpress-wordpress-login-plugin'
+					'solpress-wordpress-login'
 				),
 				get_bloginfo( 'name', 'display' )
 			) . "\n\n" . get_home_url();
@@ -89,7 +89,7 @@ class Solpress_Wordpress_Login_Plugin_Shortcodes {
 		*/
 		public function solpress_wordpress_login_plugin_login_button( $attributes ) {
 			$label = get_option('swl-short-code-label-button-text');
-            $label = (!empty($label)) ? sanitize_text_field( $label ) : __('Link your Crypto Wallet', 'solpress-wordpress-login-plugin');
+            $label = (!empty($label)) ? sanitize_text_field( $label ) : __('Link your Crypto Wallet', 'solpress-wordpress-login');
 			$label = esc_attr(preg_replace("/\\\+/", "", $label));
 			
 			$attributes = shortcode_atts( array(

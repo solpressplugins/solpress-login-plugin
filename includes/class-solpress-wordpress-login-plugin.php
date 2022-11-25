@@ -72,7 +72,7 @@ class Solpress_Wordpress_Login_Plugin {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'solpress-wordpress-login-plugin';
+		$this->plugin_name = 'solpress-wordpress-login';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -212,9 +212,7 @@ class Solpress_Wordpress_Login_Plugin {
 				 * Check if WooCommerce is active
 				 * 
 				 **/
-				// if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 					$this->loader->add_action( 'init', $this->user, 'get_links' ); 
-				// }
 
 			}
 		}
@@ -250,11 +248,8 @@ class Solpress_Wordpress_Login_Plugin {
 				 * Check if WooCommerce is active
 				 * 
 				 **/
-				// if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 					$this->loader->add_action( 'init', $this->user, 'get_links' ); 
-				// }
 				
-
 			}
 		}
 

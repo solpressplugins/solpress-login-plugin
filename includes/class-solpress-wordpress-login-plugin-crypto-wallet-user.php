@@ -81,14 +81,14 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         $this->links['wc_profile_url'] = '';
         $this->links['wc_account'] = '';
 
-        $this->links['profile_url'] = esc_url(get_edit_profile_url());
+        $this->links['profile_url'] = esc_url(sanitize_text_field(get_edit_profile_url()));
         if (function_exists('wc_get_account_endpoint_url')) {
-            $this->links['wc_profile_url'] = esc_url(wc_get_account_endpoint_url('edit-account'));
+            $this->links['wc_profile_url'] = esc_url(sanitize_text_field(wc_get_account_endpoint_url('edit-account')));
         }
         if (function_exists('wc_get_page_permalink')) {
-            $this->links['wc_account'] = esc_url(wc_get_page_permalink('myaccount'));
+            $this->links['wc_account'] = esc_url(sanitize_text_field(wc_get_page_permalink('myaccount')));
         }
-        $this->links['redirect_settings_url'] = esc_url(get_option('swl-redirect-url-settings'));
+        $this->links['redirect_settings_url'] = esc_url(sanitize_text_field(get_option('swl-redirect-url-settings')));
         $this->links['home_url'] = esc_url(home_url());
     }
 
@@ -105,51 +105,48 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
 
         if (!check_ajax_referer('solpress_wordpress_login_plugin_public_key_nonce', 'security', false)) {
             wp_send_json_error(array(
-                'errorMessage' => __('Invalid security token sent.', 'solpress-wordpress-login-plugin'),
+                'errorMessage' => __('Invalid security token sent.', 'solpress-wordpress-login'),
             ), 401);
             wp_die();
 
         } else {
-            $public_key_user = isset($_REQUEST['publicKey']) ? $_REQUEST['publicKey'] : "";
-            $public_key_user = sanitize_text_field($public_key_user);
+            $public_key_user = isset($_REQUEST['publicKey']) ? sanitize_text_field($_REQUEST['publicKey']) : "";
 
-            $source_page = isset($_REQUEST['sourcePage']) ? $_REQUEST['sourcePage'] : "";
-            $source_page = sanitize_text_field($source_page);
+            $source_page = isset($_REQUEST['sourcePage']) ? sanitize_text_field($_REQUEST['sourcePage']) : "";
 
-            $redirect_url = isset($_REQUEST['redirectionURL']) ? $_REQUEST['redirectionURL'] : "";
+            $redirect_url = isset($_REQUEST['redirectionURL']) ? sanitize_text_field($_REQUEST['redirectionURL']) : "";
+
             $redirect_url = esc_url($redirect_url);
+
             if (class_exists('Solpress_Wordpress_Login_Plugin_Shortcodes')) {
                 $shortcode_instance = new Solpress_Wordpress_Login_Plugin_Shortcodes($this->plugin_name, $this->version);
                 $signin_message = $shortcode_instance->get_sign_in_message();
             }
 
-            $signature = isset($_REQUEST['signature']) ? $_REQUEST['signature'] : "";
-            $signature = sanitize_text_field($signature);
+            $signature = isset($_REQUEST['signature']) ? sanitize_text_field($_REQUEST['signature']) : "";
 
             $verified = $this->verify_user_using_api($public_key_user, $signin_message, $signature);
 
             if ($verified) {
-                // echo "verified";
                 $user = $this->login_user($public_key_user, $source_page, $redirect_url);
 
                 if ($user) {
                     return wp_send_json_success(array(
                         'statusCode' => 200,
                         'redirectUrl' => $this->get_redirection_url($redirect_url, $source_page),
-                        'successMessage' => __('You are now logged in', 'solpress-wordpress-login-plugin'),
+                        'successMessage' => __('You are now logged in', 'solpress-wordpress-login'),
                     ));
                     wp_die();
                 } else {
-                    // echo "not-verified";
                     wp_send_json_error(array(
-                        'errorMessage' => __('An error occurred', 'solpress-wordpress-login-plugin'),
+                        'errorMessage' => __('An error occurred', 'solpress-wordpress-login'),
                     ), 400);
                     wp_die();
                 }
 
             } else {
                 wp_send_json_error(array(
-                    'errorMessage' => __('An error occurred', 'solpress-wordpress-login-plugin'),
+                    'errorMessage' => __('An error occurred', 'solpress-wordpress-login'),
                 ), 400);
                 wp_die();
             }
@@ -201,11 +198,11 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         ];
 
         $args = [
-            'body' => json_encode($data),
+            'body' => wp_json_encode($data),
             'method' => 'POST',
             'headers' => [
                 'Content-type' => 'application/json',
-            	'Authorization' => 'Bearer ' . get_option('swl-auth-key'),
+                'Authorization' => 'Bearer ' . $auth_key,
             ],
         ];
 
@@ -228,7 +225,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
                 if (count((array) $body) > 0 && isset($body->verified) && true === $body->verified) {
                     return true;
                 } else {
-                    // echo 'Invalid data';
                     return false;
                 }
 
@@ -237,7 +233,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             }
 
         } else {
-            // echo 'Response is a wp_error';
             return false;
         }
 
@@ -291,6 +286,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         $table_name = $wpdb->prefix . 'usermeta';
         $public_key_db = $wpdb->get_row(
             $wpdb->prepare(
+                // phpcs:ignore
                 "SELECT  user_id FROM `$table_name` WHERE meta_key = 'publickey' AND meta_value = %s ", $public_key_user
             ));
 
@@ -318,7 +314,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         if (!$user_id) {
 
             wp_send_json_error(array(
-                'errorMessage' => __('User not found. Try creating a new account.', 'solpress-wordpress-login-plugin'),
+                'errorMessage' => __('Account not found. Register with your wallet', 'solpress-wordpress-login'),
             ), 401);
         }
 
@@ -334,7 +330,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             return true;
         } else {
             wp_send_json_error(array(
-                'errorMessage' => __('Could not log in user, try again!', 'solpress-wordpress-login-plugin'),
+                'errorMessage' => __('Could not log in user, try again!', 'solpress-wordpress-login'),
             ), 400);
         }
 
@@ -384,7 +380,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             return $update_meta_key;
         } else {
             wp_send_json_error(array(
-                'errorMessage' => __('Could not update profile', 'solpress-wordpress-login-plugin'),
+                'errorMessage' => __('Could not update profile', 'solpress-wordpress-login'),
             ), 400);
         }
 
@@ -413,7 +409,7 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
             if (!empty($existing_user)) {
                 //there is a user with this public key
                 wp_send_json_error(array(
-                    'errorMessage' => __('Address is already linked to an account.', 'solpress-wordpress-login-plugin'),
+                    'errorMessage' => __('Address is already linked to an account.', 'solpress-wordpress-login'),
                 ), 400);
             } else {
                 // No matching address, so we can create this link.
@@ -425,19 +421,19 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
                     return wp_send_json_success(array(
                         'statusCode' => 200,
                         'redirectUrl' => $this->get_redirection_url($redirect_url, $source_page),
-                        'successMessage' => __('Success! This address is now linked to your account.', 'solpress-wordpress-login-plugin'),
+                        'successMessage' => __('Success! This address is now linked to your account.', 'solpress-wordpress-login'),
 
                     ));
 
                 } else {
                     wp_send_json_error(array(
-                        'errorMessage' => __('This address is already linked to an account.', 'solpress-wordpress-login-plugin'),
+                        'errorMessage' => __('This address is already linked to an account.', 'solpress-wordpress-login'),
                     ), 400);
                 }
             }
         } else {
             wp_send_json_error(array(
-                'errorMessage' => __('Invalid Request.', 'solpress-wordpress-login-plugin'),
+                'errorMessage' => __('Invalid Request.', 'solpress-wordpress-login'),
             ), 400);
         }
     }
@@ -461,17 +457,15 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
 
         if (empty($user_login)) {
             wp_send_json_error(array(
-                'errorMessage' => __('Empty Username.', 'solpress-wordpress-login-plugin'),
+                'errorMessage' => __('Empty Username.', 'solpress-wordpress-login'),
             ), 400);
         }
 
         $existing_user = $this->find_user_by_public_key($public_key);
 
-        // var_dump($existing_user);
-
         if (!is_null($existing_user)) {
             wp_send_json_error(array(
-                'errorMessage' => __('User already exists, Please Login', 'solpress-wordpress-login-plugin'),
+                'errorMessage' => __('User already exists, Please Login', 'solpress-wordpress-login'),
             ), 400);
         }
 
@@ -487,8 +481,6 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
         if (is_wp_error($user_id)) {
             return $user_id;
         }
-
-        // $user = get_user_by( 'ID', $user_id );
 
         $this->update_user_meta($user_id, $public_key);
 
@@ -538,24 +530,15 @@ class Solpress_Wordpress_Login_Plugin_Crypto_Wallet_User
     {
 
         if (is_user_logged_in()) {
-            if ('profile' === $source_page || 'wc-profile' === $source_page) {
-                //returns wp_send_json_success
-                $this->link_user($public_key, $source_page, $redirect_url);
-            } else {
-                wp_send_json_error(array(
-                    'errorMessage' => __('You are already logged in', 'solpress-wordpress-login-plugin'),
-                ), 401);
-            }
+            $this->link_user($public_key, $source_page, $redirect_url);
 
         } else {
             if ('register' === $source_page || 'wc-register' === $source_page) {
-                // var_dump("user is registering");
                 $registered_user = $this->register_and_log_in($public_key);
                 if ($registered_user) {
                     return true;
                 }
             } else {
-                // var_dump("user is loggingin");
                 // case for login, wc-login and shortcode
                 $user_id = $this->find_user_by_public_key($public_key);
                 $logged_user = $this->log_in($user_id);
